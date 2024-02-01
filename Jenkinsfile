@@ -11,7 +11,15 @@ environment {
     stages {
         stage("build"){
           steps {
-            sh 'mvn clean'
+            sh 'mvn clean deploy -Dmaven.test.skip=true'
+          }
+        }
+
+        stage("test"){
+          steps {
+            echo "--------report started------------"
+            sh 'mvn surefice-report:report'
+            echo "--------report ended-----------"
           }
         }
         stage('SonarQube analysis') {
