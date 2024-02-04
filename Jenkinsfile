@@ -1,4 +1,4 @@
-def imageName = 'valaxy01.jfrog.io/us-docker-local/twittertrend'
+def imageName = 'utkarshsrvstv.jfrog.io/us-docker-local/twittertrend'
 def version   = '2.1.4'
 def registry = 'https://utkarshsrvstv.jfrog.io'
 pipeline {
