@@ -1,3 +1,5 @@
+def imageName = 'valaxy01.jfrog.io/us-docker-local/twittertrend'
+def version   = '2.1.4'
 def registry = 'https://utkarshsrvstv.jfrog.io'
 pipeline {
     agent {
@@ -57,7 +59,29 @@ environment {
                      echo '<--------------- Jar Publish Ended --------------->'  
                  }
              }   
-        }  
+        }
+
+    stage(" Docker Build ") {
+      steps {
+        script {
+           echo '<--------------- Docker Build Started --------------->'
+           app = docker.build(imageName+":"+version)
+           echo '<--------------- Docker Build Ends --------------->'
+        }
+      }
+    }
+
+            stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'artifact-cred'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
+    }  
     }
 }
 
